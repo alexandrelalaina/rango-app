@@ -1,0 +1,28 @@
+<h1>Cadastro</h1>
+
+<div class="input-group input-group-lg">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-lg">Descrição</span>
+  </div>
+  <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
+</div>
+
+<p></p>
+
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+  <label class="form-check-label" for="flexCheckDefault">
+    Possui em Estoque?
+  </label>
+</div>
+
+<p></p>
+
+<div class="row white">
+  <div class="col-6">
+    <button (click)="cancelarItem()" type="button" class="btn btn-secondary">Cancelar</button>
+  </div>
+  <div class="col-6">
+    <button (click)="salvarItem()" type="button" class="btn btn-success">Cadastrar</button>
+  </div>
+</div>

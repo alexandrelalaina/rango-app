@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col">
+    <h1>Itens</h1>
+  </div>
+  <div class="col">
+    <button (click)="cadastrarItem()" type="button" class="btn btn-success">Cadastrar</button>
+  </div>
+</div>
+
+<ul>
+  <li *ngFor="let item of itens"> {{ item.descricao}}  </li>
+</ul>
