@@ -107,5 +107,7 @@
       }
     }
   },
-  "defaultProject": "rango-app"
+  "cli": {
+    "analytics": "f4804096-f459-47ba-be6b-5f45b65555a9"
+  }
 }
