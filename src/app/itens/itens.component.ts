@@ -10,25 +10,24 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 })
 export class ItensComponent implements OnInit {
 
-    productDialog!: boolean;
+    itemDialog!: boolean;
 
-    productList!: Item[];
+    itemList!: Item[];
 
-    product: Item = {} as Item;
+    item: Item = {} as Item;
 
-    selectedProducts: any[] = [];
+    selectedItem: any[] = [];
 
     submitted!: boolean;
 
     constructor(private messageService: MessageService, private confirmationService: ConfirmationService) { }
 
     ngOnInit() {
-        this.productList = this.preencherLista();
-        console.log(this.productList)
+        this.itemList = this.preencherLista();
+        console.log(this.itemList)
     }
 
     preencherLista(): Item[]{
-
       let item = new Item();
       item.id = "1";
       item.descricao = "Calabresa";
@@ -50,75 +49,75 @@ export class ItensComponent implements OnInit {
       return [item, item2];
     }
 
-    openNew() {
-        this.product = new Item();
+    newItem() {
+        this.item = new Item();
         this.submitted = false;
-        this.productDialog = true;
+        this.itemDialog = true;
     }
 
-    deleteSelectedProducts() {
+    deleteSelectedItemList() {
         this.confirmationService.confirm({
-            message: 'Are you sure you want to delete the selected products?',
+            message: 'Are you sure you want to delete the selected itens?',
             header: 'Confirm',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
-                this.productList = this.productList.filter(val => !this.selectedProducts.includes(val));
-                this.messageService.add({severity:'success', summary: 'Successful', detail: 'Products Deleted', life: 3000});
+                this.itemList = this.itemList.filter(val => !this.selectedItem.includes(val));
+                this.messageService.add({severity:'success', summary: 'Successful', detail: '  Deleted', life: 3000});
             }
         });
     }
 
-    editProduct(product: any) {
-        this.product = {...product};
-        this.productDialog = true;
+    editItem(product: any) {
+        this.item = {...product};
+        this.itemDialog = true;
     }
 
-    deleteProduct(product: any) {
+    deleteItem(item: any) {
         this.confirmationService.confirm({
-            message: 'Are you sure you want to delete ' + product.name + '?',
+            message: 'Are you sure you want to delete ' + item.name + '?',
             header: 'Confirm',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
-                this.productList = this.productList.filter(val => val.id !== product.id);
-                this.product = {} as Item;
-                this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Deleted', life: 3000});
+                this.itemList = this.itemList.filter(val => val.id !== item.id);
+                this.item = {} as Item;
+                this.messageService.add({severity:'success', summary: 'Successful', detail: 'Item Deleted', life: 3000});
             }
         });
     }
 
     hideDialog() {
-        this.productDialog = false;
+        this.itemDialog = false;
         this.submitted = false;
     }
 
-    saveProduct() {
+    saveItem() {
         this.submitted = true;
 
-        console.log("Salvar item => " + this.product)
-        console.log("this.product.possuiEstoque: " + this.product.possuiEstoque)
+        console.log("Salvar item => " + this.item)
+        console.log("this.item.possuiEstoque: " + this.item.possuiEstoque)
 
-        if (this.product.descricao.trim()) {
-            if (this.product.id) {
-                this.productList[this.findIndexById(this.product.id)] = this.product;
+        if (this.item.descricao.trim()) {
+            if (this.item.id) {
+                this.itemList[this.findIndexById(this.item.id)] = this.item;
                 this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
             }
             else {
-                this.product.id = this.createId();
-                this.product.image = 'product-placeholder.svg';
-                this.productList.push(this.product);
+                this.item.id = this.createId();
+                this.item.image = 'product-placeholder.svg';
+                this.itemList.push(this.item);
                 this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Created', life: 3000});
             }
 
-            this.productList = [...this.productList];
-            this.productDialog = false;
-            this.product = {} as Item;
+            this.itemList = [...this.itemList];
+            this.itemDialog = false;
+            this.item = {} as Item;
         }
     }
 
     findIndexById(id: string): number {
         let index = -1;
-        for (let i = 0; i < this.productList.length; i++) {
-            if (this.productList[i].id === id) {
+        for (let i = 0; i < this.itemList.length; i++) {
+            if (this.itemList[i].id === id) {
                 index = i;
                 break;
             }

@@ -30,13 +30,15 @@ import { MessageService } from 'primeng/api';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { ReceitasPageComponent } from './receitas-page/receitas-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
       NavbarComponent,
       ItensComponent,
-      ItemModalComponent
+      ItemModalComponent,
+      ReceitasPageComponent
    ],
   imports: [
     BrowserModule,

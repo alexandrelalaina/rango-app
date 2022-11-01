@@ -1,12 +1,17 @@
 import { ItensComponent } from './itens/itens.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ReceitasPageComponent } from './receitas-page/receitas-page.component';
 
 const routes: Routes = [
   {
     path: 'itens',
     component: ItensComponent,
   },
+  {
+    path: 'receitas',
+    component: ReceitasPageComponent
+  }
 ];
 
 @NgModule({

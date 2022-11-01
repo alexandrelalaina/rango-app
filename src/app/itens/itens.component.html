@@ -3,17 +3,17 @@
 <div class="card">
     <p-toolbar styleClass="mb-4">
         <ng-template pTemplate="left">
-            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
-            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
+            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="newItem()"></button>
+            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedItemList()" [disabled]="!selectedItem || !selectedItem.length"></button>
         </ng-template>
     </p-toolbar>
 
-    <p-table #dt [value]="productList" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name']" responsiveLayout="scroll"
-        [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
+    <p-table #dt [value]="itemList" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name']" responsiveLayout="scroll"
+        [(selection)]="selectedItem" [rowHover]="true" dataKey="id"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
             <div class="flex align-items-center justify-content-between">
-                <h5 class="m-0">Manage Products</h5>
+                <h5 class="m-0">Manage Itens</h5>
                 <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
                 </span>
@@ -33,62 +33,62 @@
                 <th></th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product>
+        <ng-template pTemplate="body" let-item>
             <tr>
                 <td>
-                    <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                    <p-tableCheckbox [value]="item"></p-tableCheckbox>
                 </td>
-                <td>{{product.descricao}}</td>
-                <td><img [src]="" [alt]="product.descricao" width="100" class="shadow-4" /></td>
-                <td><p-rating [ngModel]="product.possuiEstoque" [readonly]="true" [cancel]="false"></p-rating></td>
-                <td>{{product.quantidade}} </td>
-                <td>{{product.valor | currency:'R$'}}</td>
-                <td>{{product.obs}}</td>
+                <td>{{item.descricao}}</td>
+                <td><img [src]="" [alt]="item.descricao" width="100" class="shadow-4" /></td>
+                <td><p-rating [ngModel]="item.possuiEstoque" [readonly]="true" [cancel]="false"></p-rating></td>
+                <td>{{item.quantidade}} </td>
+                <td>{{item.valor | currency:'R$'}}</td>
+                <td>{{item.obs}}</td>
                 <td>
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editProduct(product)"></button>
-                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(product)"></button>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editItem(item)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteItem(item)"></button>
                 </td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
             <div class="flex align-items-center justify-content-between">
-                In total there are {{productList ? productList.length : 0 }} products.
+                In total there are {{itemList ? itemList.length : 0 }} itens.
             </div>
         </ng-template>
     </p-table>
 </div>
 
-<p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true" styleClass="p-fluid">
+<p-dialog [(visible)]="itemDialog" [style]="{width: '450px'}" header="Itens Details" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
-        <img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.image" class="product-image" *ngIf="product.image">
+        <img [src]="'assets/showcase/images/demo/product/' + item.image" [alt]="item.image" class="product-image" *ngIf="item.image">
         <div class="field">
             <label for="descricao">Descrição</label>
-            <input type="text" pInputText id="descricao" [(ngModel)]="product.descricao" required autofocus />
-            <small class="p-error" *ngIf="submitted && !product.descricao">Descrição is required.</small>
+            <input type="text" pInputText id="descricao" [(ngModel)]="item.descricao" required autofocus />
+            <small class="p-error" *ngIf="submitted && !item.descricao">Descrição is required.</small>
         </div>
         <div class="field">
           <label for="possuiEstoque">Estoque</label>
-          <p-rating [ngModel]="product.possuiEstoque" [readonly]="false" [cancel]="false"></p-rating>
+          <p-rating [ngModel]="item.possuiEstoque" [readonly]="false" [cancel]="false"></p-rating>
         </div>
         <div class="formgrid grid">
           <div class="field col">
             <label for="quantidade">Quantidade</label>
-            <p-inputNumber id="quantidade" [(ngModel)]="product.quantidade"></p-inputNumber>
+            <p-inputNumber id="quantidade" [(ngModel)]="item.quantidade"></p-inputNumber>
           </div>
           <div class="field col">
             <label for="valor">Valor</label>
-            <p-inputNumber id="valor" [(ngModel)]="product.valor" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
+            <p-inputNumber id="valor" [(ngModel)]="item.valor" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
           </div>
         </div>
         <div class="field">
             <label for="obs">Observação</label>
-            <textarea id="obs" pInputTextarea [(ngModel)]="product.obs" required rows="3" cols="20"></textarea>
+            <textarea id="obs" pInputTextarea [(ngModel)]="item.obs" required rows="3" cols="20"></textarea>
         </div>
     </ng-template>
 
     <ng-template pTemplate="footer">
         <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveItem()"></button>
     </ng-template>
 </p-dialog>
 
