@@ -26,8 +26,6 @@
               </th>
               <th pSortableColumn="descricao">Descrição <p-sortIcon field="descricao"></p-sortIcon></th>
               <th>Imagem</th>
-              <th pSortableColumn="possuiEstoque">Estoque <p-sortIcon field="possuiEstoque"></p-sortIcon></th>
-              <th pSortableColumn="quantidade">Quantidade <p-sortIcon field="quantidade"></p-sortIcon></th>
               <th pSortableColumn="valor">Valor <p-sortIcon field="valor"></p-sortIcon></th>
               <th pSortableColumn="obs">Observação <p-sortIcon field="obs"></p-sortIcon></th>
               <th></th>
@@ -40,8 +38,6 @@
               </td>
               <td>{{receita.descricao}}</td>
               <td><img [src]="" [alt]="receita.descricao" width="100" class="shadow-4" /></td>
-              <td><p-rating [ngModel]="receita.possuiEstoque" [readonly]="true" [cancel]="false"></p-rating></td>
-              <td>{{receita.quantidade}} </td>
               <td>{{receita.valor | currency:'R$'}}</td>
               <td>{{receita.obs}}</td>
               <td>
@@ -66,10 +62,6 @@
           <label for="descricao">Descrição</label>
           <input type="text" pInputText id="descricao" [(ngModel)]="receita.descricao" required autofocus />
           <small class="p-error" *ngIf="submitted && !receita.descricao">Descrição is required.</small>
-      </div>
-      <div class="field">
-        <label for="possuiEstoque">Estoque</label>
-        <p-rating [ngModel]="receita.possuiEstoque" [readonly]="false" [cancel]="false"></p-rating>
       </div>
       <div class="field">
           <label for="obs">Observação</label>

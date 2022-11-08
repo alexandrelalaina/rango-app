@@ -27,8 +27,6 @@
                 <th pSortableColumn="descricao">Descrição <p-sortIcon field="descricao"></p-sortIcon></th>
                 <th>Imagem</th>
                 <th pSortableColumn="possuiEstoque">Estoque <p-sortIcon field="possuiEstoque"></p-sortIcon></th>
-                <th pSortableColumn="quantidade">Quantidade <p-sortIcon field="quantidade"></p-sortIcon></th>
-                <th pSortableColumn="valor">Valor <p-sortIcon field="valor"></p-sortIcon></th>
                 <th pSortableColumn="obs">Observação <p-sortIcon field="obs"></p-sortIcon></th>
                 <th></th>
             </tr>
@@ -41,8 +39,6 @@
                 <td>{{item.descricao}}</td>
                 <td><img [src]="" [alt]="item.descricao" width="100" class="shadow-4" /></td>
                 <td><p-rating [ngModel]="item.possuiEstoque" [readonly]="true" [cancel]="false"></p-rating></td>
-                <td>{{item.quantidade}} </td>
-                <td>{{item.valor | currency:'R$'}}</td>
                 <td>{{item.obs}}</td>
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editItem(item)"></button>
@@ -69,16 +65,6 @@
         <div class="field">
           <label for="possuiEstoque">Estoque</label>
           <p-rating [ngModel]="item.possuiEstoque" [readonly]="false" [cancel]="false"></p-rating>
-        </div>
-        <div class="formgrid grid">
-          <div class="field col">
-            <label for="quantidade">Quantidade</label>
-            <p-inputNumber id="quantidade" [(ngModel)]="item.quantidade"></p-inputNumber>
-          </div>
-          <div class="field col">
-            <label for="valor">Valor</label>
-            <p-inputNumber id="valor" [(ngModel)]="item.valor" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
-          </div>
         </div>
         <div class="field">
             <label for="obs">Observação</label>
