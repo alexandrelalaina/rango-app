@@ -9,7 +9,7 @@ export class ItemService {
 
     constructor(private httpClient: HttpClient) {}
 
-    private readonly API = 'http://localhost:8080/itens';
+    private readonly API = 'api/itens';
 
     private itemList: Item[] = [];
 
