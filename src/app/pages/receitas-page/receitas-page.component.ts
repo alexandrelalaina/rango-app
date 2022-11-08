@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Receita } from 'src/model/Receita';
+import { ReceitaService } from '../../services/receita.service';
 
 @Component({
   selector: 'app-receitas-page',
@@ -10,17 +11,27 @@ import { Receita } from 'src/model/Receita';
 export class ReceitasPageComponent implements OnInit {
 
   selectedItem: any[] = [];
-  receitaList: any[] = [];
+  receitaList: Receita[] = [];
   registroDialog!: boolean;
   submitted!: boolean;
   receita: Receita = {} as Receita;
 
-  constructor(private messageService: MessageService, private confirmationService: ConfirmationService) { }
+  constructor(private messageService: MessageService,
+              private confirmationService: ConfirmationService,
+              private service: ReceitaService) { }
 
   ngOnInit(): void {
-    this.receitaList = this.preencherReceitaList();
+
+    this.service.list()
+        .subscribe(data => this.receitaList = data);
+
+    console.log('retornou receitas?');
+    console.log(this.receitaList.forEach(data => console.log('descricao: ' + data.descricao.toString)));
+    console.log(this.receitaList);
+
   }
 
+  /*
   preencherReceitaList(): Receita[]{
     let receita1 = new Receita();
     receita1.id = "1";
@@ -36,6 +47,7 @@ export class ReceitasPageComponent implements OnInit {
 
     return [receita1, receita2];
   }
+  */
 
   newItem() {
     this.receita = new Receita();

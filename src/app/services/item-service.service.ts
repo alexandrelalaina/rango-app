@@ -11,8 +11,6 @@ export class ItemService {
 
     private readonly API = 'api/itens';
 
-    private itemList: Item[] = [];
-
     list(){
         return this.httpClient.get<Item[]>(this.API);
     }
