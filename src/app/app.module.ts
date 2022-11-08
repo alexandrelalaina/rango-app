@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { ItensComponent } from './itens/itens.component';
+import { ItensComponent } from './pages/itens-page/itens.component';
 import { ItemModalComponent } from './modals/item-modal/item-modal.component';
 
 import {TableModule} from 'primeng/table';
@@ -30,7 +30,7 @@ import { MessageService } from 'primeng/api';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { ReceitasPageComponent } from './receitas-page/receitas-page.component';
+import { ReceitasPageComponent } from './pages/receitas-page/receitas-page.component';
 
 @NgModule({
   declarations: [

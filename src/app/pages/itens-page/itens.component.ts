@@ -1,7 +1,7 @@
-import { Item } from './../../model/Item';
-import { ItemModalComponent } from './../modals/item-modal/item-modal.component';
+import { Item } from '../../../model/Item';
 import { Component, OnInit } from '@angular/core';
 import { MessageService, ConfirmationService } from 'primeng/api';
+import { ItemService } from '../../services/item-service.service';
 
 @Component({
   selector: 'app-itens',
@@ -20,13 +20,20 @@ export class ItensComponent implements OnInit {
 
     submitted!: boolean;
 
-    constructor(private messageService: MessageService, private confirmationService: ConfirmationService) { }
+    constructor(private messageService: MessageService,
+                private confirmationService: ConfirmationService,
+                private service: ItemService) { }
 
     ngOnInit() {
-        this.itemList = this.preencherLista();
-        console.log(this.itemList)
+      this.service.list()
+          .subscribe(data => this.itemList = data);
+
+      //this.itemList = this.preencherLista();
+        console.log('carregou???')
+        console.log('lista de itens => ' + this.itemList)
     }
 
+  /*
     preencherLista(): Item[]{
       let item = new Item();
       item.id = "1";
@@ -48,6 +55,7 @@ export class ItensComponent implements OnInit {
 
       return [item, item2];
     }
+*/
 
     newItem() {
         this.item = new Item();
@@ -103,7 +111,7 @@ export class ItensComponent implements OnInit {
             }
             else {
                 this.item.id = this.createId();
-                this.item.image = 'product-placeholder.svg';
+                this.item.imagem = 'product-placeholder.svg';
                 this.itemList.push(this.item);
                 this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Created', life: 3000});
             }

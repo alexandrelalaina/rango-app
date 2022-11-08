@@ -60,7 +60,7 @@
 
 <p-dialog [(visible)]="itemDialog" [style]="{width: '450px'}" header="Itens Details" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
-        <img [src]="'assets/showcase/images/demo/product/' + item.image" [alt]="item.image" class="product-image" *ngIf="item.image">
+        <img [src]="'assets/showcase/images/demo/product/' + item.imagem" [alt]="item.imagem" class="product-image" *ngIf="item.imagem">
         <div class="field">
             <label for="descricao">Descrição</label>
             <input type="text" pInputText id="descricao" [(ngModel)]="item.descricao" required autofocus />
