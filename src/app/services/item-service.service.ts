@@ -15,5 +15,17 @@ export class ItemService {
         return this.httpClient.get<Item[]>(this.API);
     }
 
+    // save - vale para POST e PUT
+    save(item: Item) {
+      console.log('===[item-service.service.ts].SAVE===');
+
+      if (item.id){
+          throw new Error('Implementar o PUT - id = ' + item.id);
+      }
+
+      console.log('executando POST - item? ' + item);
+
+      return this.httpClient.post<Item>(this.API, item);
+    }
 
 }

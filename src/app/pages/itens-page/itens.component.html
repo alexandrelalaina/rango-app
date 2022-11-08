@@ -56,15 +56,19 @@
 
 <p-dialog [(visible)]="itemDialog" [style]="{width: '450px'}" header="Itens Details" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
-        <img [src]="'assets/showcase/images/demo/product/' + item.imagem" [alt]="item.imagem" class="product-image" *ngIf="item.imagem">
+        <img [src]="item.imagem" [alt]="item.imagem" class="product-image" *ngIf="item.imagem">
         <div class="field">
             <label for="descricao">Descrição</label>
             <input type="text" pInputText id="descricao" [(ngModel)]="item.descricao" required autofocus />
             <small class="p-error" *ngIf="submitted && !item.descricao">Descrição is required.</small>
         </div>
         <div class="field">
+          <label for="imagem">Imagem URL</label>
+          <input type="text" pInputText id="imagem" [(ngModel)]="item.imagem" />
+        </div>
+        <div class="field">
           <label for="possuiEstoque">Estoque</label>
-          <p-rating [ngModel]="item.possuiEstoque" [readonly]="false" [cancel]="false"></p-rating>
+          <p-rating [(ngModel)]="item.possuiEstoque" [readonly]="false" [cancel]="false"></p-rating>
         </div>
         <div class="field">
             <label for="obs">Observação</label>

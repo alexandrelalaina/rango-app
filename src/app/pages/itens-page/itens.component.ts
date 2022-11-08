@@ -73,8 +73,7 @@ export class ItensComponent implements OnInit {
     saveItem() {
         this.submitted = true;
 
-        console.log("Salvar item => " + this.item)
-        console.log("this.item.possuiEstoque: " + this.item.possuiEstoque)
+        console.log("Salvar item => " + this.item);
 
         if (this.item.descricao.trim()) {
             if (this.item.id) {
@@ -82,13 +81,15 @@ export class ItensComponent implements OnInit {
                 this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
             }
             else {
-                this.item.id = this.createId();
-                this.item.imagem = 'product-placeholder.svg';
-                this.itemList.push(this.item);
+                //TODO - implementando service para fazer o post
+                this.service.save(this.item).subscribe(data => console.log(data));
+
+                //this.item.id = this.createId();
+                //this.itemList.push(this.item);
                 this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Created', life: 3000});
             }
 
-            this.itemList = [...this.itemList];
+            //this.itemList = [...this.itemList];
             this.itemDialog = false;
             this.item = {} as Item;
         }
