@@ -57,7 +57,7 @@
 
 <p-dialog [(visible)]="registroDialog" [style]="{width: '450px'}" header="Receita detalhes" [modal]="true" styleClass="p-fluid">
   <ng-template pTemplate="content">
-      <img [src]="'assets/showcase/images/demo/product/' + receita.image" [alt]="receita.image" class="product-image" *ngIf="receita.image">
+      <img [src]="receita.imagem" [alt]="receita.imagem" class="product-image" *ngIf="receita.imagem">
       <div class="field">
           <label for="descricao">Descrição</label>
           <input type="text" pInputText id="descricao" [(ngModel)]="receita.descricao" required autofocus />

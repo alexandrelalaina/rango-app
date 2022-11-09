@@ -2,8 +2,8 @@ export class Receita{
 
     public id!: string;
     public descricao!: string;
-    public possuiEstoque!: number;
-    public image!: string;
+    public imagem!: string;
+    public valor: number = 0;
     public obs!: string;
 
 }

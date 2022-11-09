@@ -18,7 +18,7 @@ export class ItensComponent implements OnInit {
     submitted!: boolean;
 
     private readonly PROMPT_SINGULAR: string = 'Item';
-    private readonly PROMPT_PLURAL: string = 'Itens';
+    readonly PROMPT_PLURAL: string = 'Itens';
 
 
     constructor(private messageService: MessageService,

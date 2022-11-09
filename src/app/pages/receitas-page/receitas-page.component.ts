@@ -31,24 +31,6 @@ export class ReceitasPageComponent implements OnInit {
 
   }
 
-  /*
-  preencherReceitaList(): Receita[]{
-    let receita1 = new Receita();
-    receita1.id = "1";
-    receita1.descricao = "Calabresa Acebolada";
-    receita1.possuiEstoque = 2;
-    receita1.obs = "não colocar sal";
-
-    let receita2 = new Receita();
-    receita2.id = "2";
-    receita2.descricao = "Carne moída com legumes";
-    receita2.possuiEstoque = 3;
-    receita2.obs = "patinho";
-
-    return [receita1, receita2];
-  }
-  */
-
   newItem() {
     this.receita = new Receita();
     this.submitted = false;
@@ -69,7 +51,7 @@ export class ReceitasPageComponent implements OnInit {
   }
 
   editItem(receita: Receita){
-    this.receita = {...receita};
+    this.receita = receita;
     this.registroDialog = true;
   }
 
@@ -79,7 +61,8 @@ export class ReceitasPageComponent implements OnInit {
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-          this.receitaList = this.receitaList.filter(val => val.id !== receita.id);
+          this.service.delete(receita.id)
+              .subscribe(data => this.refresh());
           this.receita = {} as Receita;
           this.messageService.add({severity:'success', summary: 'Successful', detail: 'Receita excluída', life: 3000});
       }
@@ -95,45 +78,26 @@ export class ReceitasPageComponent implements OnInit {
     this.submitted = true;
 
     console.log("Salvar item => " + this.receita)
-    console.log("this.receita.possuiEstoque: " + this.receita.possuiEstoque)
 
     if (this.receita.descricao.trim()) {
         if (this.receita.id) {
-            this.receitaList[this.findIndexById(this.receita.id)] = this.receita;
+            this.service.save(this.receita).subscribe(data => this.refresh());
+            //this.receitaList[this.findIndexById(this.receita.id)] = this.receita;
             this.messageService.add({severity:'success', summary: 'Successful', detail: 'Receita Updated', life: 3000});
         }
         else {
-            this.receita.id = this.createId();
-            this.receita.image = 'product-placeholder.svg';
-            this.receitaList.push(this.receita);
+            this.service.save(this.receita).subscribe(data => this.refresh());
+            //this.receitaList.push(this.receita);
             this.messageService.add({severity:'success', summary: 'Successful', detail: 'Receita Created', life: 3000});
         }
 
-        this.receitaList = [...this.receitaList];
         this.registroDialog = false;
         this.receita = {} as Receita;
     }
   }
 
-  findIndexById(id: string): number {
-    let index = -1;
-    for (let i = 0; i < this.receitaList.length; i++) {
-        if (this.receitaList[i].id === id) {
-            index = i;
-            break;
-        }
-    }
-
-    return index;
-  }
-
-createId(): string {
-    let id = '';
-    var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for ( var i = 0; i < 5; i++ ) {
-        id += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return id;
+  private refresh(): void{
+      this.service.list().subscribe(data => this.receitaList = data);
   }
 
 }
