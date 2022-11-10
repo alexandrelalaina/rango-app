@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ItensComponent } from './pages/itens-page/itens.component';
-import { ItemModalComponent } from './modals/item-modal/item-modal.component';
+import { ItemModalComponent } from './pages/itens-page/item-modal/item-modal.component';
 
 import {TableModule} from 'primeng/table';
 import {ToastModule} from 'primeng/toast';

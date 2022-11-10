@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Receita } from '../../model/Receita';
+import { Receita } from '../models/IReceita';
 import { first } from 'rxjs';
 
 @Injectable({

@@ -1,4 +1,4 @@
-import { Item } from '../../../model/Item';
+import { Item } from '../../models/IItem';
 import { Component, OnInit } from '@angular/core';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { ItemService } from '../../services/item-service.service';
@@ -32,7 +32,7 @@ export class ItensComponent implements OnInit {
 
     newItem() {
         console.log('===[itens.component.ts].newItem===');
-        this.item = new Item();
+        this.item = {} as Item;
         this.submitted = false;
         this.itemDialog = true;
     }

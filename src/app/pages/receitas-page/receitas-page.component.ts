@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { Receita } from 'src/model/Receita';
+import { Receita } from 'src/app/models/IReceita';
 import { ReceitaService } from '../../services/receita.service';
+import { Item } from '../../models/IItem';
 
 @Component({
   selector: 'app-receitas-page',
@@ -32,7 +33,7 @@ export class ReceitasPageComponent implements OnInit {
   }
 
   newItem() {
-    this.receita = new Receita();
+    this.receita = {} as Receita;
     this.submitted = false;
     this.registroDialog = true;
   }
