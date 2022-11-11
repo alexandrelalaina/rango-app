@@ -1,4 +1,4 @@
-export interface Receita{
+export interface IReceita{
 
     id: string;
     descricao: string;

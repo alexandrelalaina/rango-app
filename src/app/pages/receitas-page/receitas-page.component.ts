@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { Receita } from 'src/app/models/IReceita';
+import { IReceita } from 'src/app/models/IReceita';
 import { ReceitaService } from '../../services/receita.service';
-import { Item } from '../../models/IItem';
+import { IItem } from '../../models/IItem';
+import { ItemService } from '../../services/item-service.service';
+import { ReceitaItemService } from '../../services/receita-item.service';
+import { IReceitaItem } from '../../models/IReceitaItem';
 
 @Component({
   selector: 'app-receitas-page',
@@ -12,14 +15,19 @@ import { Item } from '../../models/IItem';
 export class ReceitasPageComponent implements OnInit {
 
   selectedItem: any[] = [];
-  receitaList: Receita[] = [];
+  receitaList: IReceita[] = [];
   registroDialog!: boolean;
   submitted!: boolean;
-  receita: Receita = {} as Receita;
+  receita: IReceita = {} as IReceita;
+
+  dropdownItemLista: IItem[] = [];
+  dropdownItemSelecionado!: IItem;
 
   constructor(private messageService: MessageService,
               private confirmationService: ConfirmationService,
-              private service: ReceitaService) { }
+              private service: ReceitaService,
+              private serviceItem: ItemService,
+              private serviceReceitaItem: ReceitaItemService) { }
 
   ngOnInit(): void {
 
@@ -33,7 +41,8 @@ export class ReceitasPageComponent implements OnInit {
   }
 
   newItem() {
-    this.receita = {} as Receita;
+    this.receita = {} as IReceita;
+    this.preencherDropdownItemLista();
     this.submitted = false;
     this.registroDialog = true;
   }
@@ -51,12 +60,13 @@ export class ReceitasPageComponent implements OnInit {
     });
   }
 
-  editItem(receita: Receita){
+  editItem(receita: IReceita){
     this.receita = receita;
+    this.preencherDropdownItemLista();
     this.registroDialog = true;
   }
 
-  deleteItem(receita: Receita){
+  deleteItem(receita: IReceita){
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete ' + receita.descricao + '?',
       header: 'Confirm',
@@ -64,7 +74,7 @@ export class ReceitasPageComponent implements OnInit {
       accept: () => {
           this.service.delete(receita.id)
               .subscribe(data => this.refresh());
-          this.receita = {} as Receita;
+          this.receita = {} as IReceita;
           this.messageService.add({severity:'success', summary: 'Successful', detail: 'Receita excluída', life: 3000});
       }
   });
@@ -93,8 +103,28 @@ export class ReceitasPageComponent implements OnInit {
         }
 
         this.registroDialog = false;
-        this.receita = {} as Receita;
+        this.receita = {} as IReceita;
     }
+  }
+
+  public receitaItemAdd(item: IItem){
+      console.log('teste - item selecionado => ' + item.descricao);
+
+      let receitaItem = {
+          "receitaId": this.receita.id,
+          "itemId": this.dropdownItemSelecionado.id
+      }
+
+      this.serviceReceitaItem.save(receitaItem)
+          .subscribe(data => {
+              this.dropdownItemSelecionado = {} as IItem;
+              this.dropdownItemLista = this.dropdownItemLista.filter(val => val.id !== receitaItem.itemId);
+          });
+  }
+
+  private preencherDropdownItemLista(){
+    this.serviceItem.list().subscribe(data => this.dropdownItemLista = data);
+    console.log(this.dropdownItemLista);
   }
 
   private refresh(): void{

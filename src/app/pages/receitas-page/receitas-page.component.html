@@ -67,6 +67,21 @@
           <label for="obs">Observação</label>
           <textarea id="obs" pInputTextarea [(ngModel)]="receita.obs" required rows="3" cols="20"></textarea>
       </div>
+
+      <div>
+          <h5>
+            Itens da Receita
+          </h5>
+          Item
+          <p-dropdown [options]="dropdownItemLista"
+                      [(ngModel)]="dropdownItemSelecionado"
+                      placeholder="Selecione o item"
+                      optionLabel="descricao"
+                      [showClear]="true">
+          </p-dropdown>
+          <button pButton pRipple icon="pi pi-plus" class="p-button-success mr-1" (click)="receitaItemAdd(dropdownItemSelecionado)"></button>
+      </div>
+
   </ng-template>
 
   <ng-template pTemplate="footer">

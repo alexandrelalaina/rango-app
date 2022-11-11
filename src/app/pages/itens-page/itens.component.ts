@@ -1,4 +1,4 @@
-import { Item } from '../../models/IItem';
+import { IItem } from '../../models/IItem';
 import { Component, OnInit } from '@angular/core';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { ItemService } from '../../services/item-service.service';
@@ -10,9 +10,9 @@ import { ItemService } from '../../services/item-service.service';
 })
 export class ItensComponent implements OnInit {
 
-    itemList!: Item[];
-    item: Item = {} as Item;
-    selectedItem: Item[] = [];
+    itemList!: IItem[];
+    item: IItem = {} as IItem;
+    selectedItem: IItem[] = [];
 
     itemDialog!: boolean;
     submitted!: boolean;
@@ -32,7 +32,7 @@ export class ItensComponent implements OnInit {
 
     newItem() {
         console.log('===[itens.component.ts].newItem===');
-        this.item = {} as Item;
+        this.item = {} as IItem;
         this.submitted = false;
         this.itemDialog = true;
     }
@@ -50,13 +50,13 @@ export class ItensComponent implements OnInit {
         });
     }
 
-    editItem(item: Item) {
+    editItem(item: IItem) {
         console.log('===[itens.component.ts].editItem===');
         this.item = item;
         this.itemDialog = true;
     }
 
-    deleteItem(item: Item) {
+    deleteItem(item: IItem) {
         console.log('===[itens.component.ts].deleteItem===');
         this.confirmationService.confirm({
             message: 'Deseja deletar esse ' + this.PROMPT_SINGULAR + '?',
@@ -66,7 +66,7 @@ export class ItensComponent implements OnInit {
                 this.service.delete(item.id)
                     .subscribe(data => this.refresh());
                 //this.itemList = this.itemList.filter(val => val.id !== item.id);
-                this.item = {} as Item;
+                this.item = {} as IItem;
                 this.messageService.add({severity:'success', summary: 'Successful', detail: this.PROMPT_SINGULAR + ' Deletado', life: 3000});
             }
         });
@@ -98,20 +98,8 @@ export class ItensComponent implements OnInit {
             }
 
             this.itemDialog = false;
-            this.item = {} as Item;
+            this.item = {} as IItem;
         }
-    }
-
-    private findIndexById(id: string): number {
-        let index = -1;
-        for (let i = 0; i < this.itemList.length; i++) {
-            if (this.itemList[i].id === id) {
-                index = i;
-                break;
-            }
-        }
-
-        return index;
     }
 
     private refresh(){
